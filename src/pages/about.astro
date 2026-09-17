@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../consts';
+---
+<Base title={`About — ${SITE.name}`} description={`About ${SITE.name}, ${SITE.role}.`}>
+  <section class="prose mx-auto w-full max-w-(--container-measure) px-6 pt-12 pb-16 sm:pt-20">
+    <h1 class="font-serif text-[clamp(1.875rem,4vw,2.5rem)] leading-tight tracking-[-0.02em]">About</h1>
+
+    <p>
+      TODO. Two or three paragraphs, first person, no third-person bio voice.
+      Lead with what you work on now and what you are good at, not with where
+      you went to school.
+    </p>
+
+    <h2>Now</h2>
+    <p>TODO. What you are doing this year and what you are looking for.</p>
+
+    <h2>Elsewhere</h2>
+    <ul>
+      {SITE.links.map((l) => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+    </ul>
+  </section>
+</Base>

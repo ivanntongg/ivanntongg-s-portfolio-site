@@ -1,0 +1,17 @@
+---
+import { SITE } from '../consts';
+---
+<footer class="mx-auto w-full max-w-(--container-wide) px-6 pt-24 pb-12 sm:px-10">
+  <div class="flex flex-wrap items-baseline justify-between gap-6 border-t border-rule pt-8 text-[0.9375rem]">
+    <p class="text-ink-muted">
+      Open to new work. <a href={`mailto:${SITE.email}`} class="text-ink underline decoration-ink-faint underline-offset-3 hover:decoration-accent">Get in touch</a>.
+    </p>
+    <ul class="flex gap-5">
+      {SITE.links.map((l) => (
+        <li>
+          <a href={l.href} class="text-ink-muted transition-colors hover:text-ink">{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>

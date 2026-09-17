@@ -1,0 +1,28 @@
+---
+import { SITE } from '../consts';
+const path = Astro.url.pathname;
+const items = [
+  { href: '/', label: 'Work' },
+  { href: '/about/', label: 'About' },
+];
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+<header class="mx-auto flex w-full max-w-(--container-wide) items-baseline justify-between px-6 py-8 sm:px-10">
+  <a href="/" class="text-[0.9375rem] font-medium tracking-tight">{SITE.name}</a>
+  <nav aria-label="Primary">
+    <ul class="flex gap-6 text-[0.9375rem]">
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+            class="text-ink-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

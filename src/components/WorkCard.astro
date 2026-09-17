@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { entry: CollectionEntry<'work'> }
+const { entry } = Astro.props;
+const { title, summary, cover, coverAlt, role, timeframe } = entry.data;
+---
+<a href={`/work/${entry.id}/`} class="group block">
+  <div class="overflow-hidden rounded-lg bg-surface-sunk">
+    <Image
+      src={cover}
+      alt={coverAlt}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 768px) 34rem, 92vw"
+      class="aspect-16/10 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="mt-4">
+    <h3 class="text-[1.0625rem] font-medium tracking-tight">{title}</h3>
+    <p class="mt-1 max-w-[34rem] text-[0.9375rem] leading-relaxed text-ink-muted">{summary}</p>
+    <p class="mt-2 text-[0.8125rem] text-ink-faint">{role} &middot; {timeframe}</p>
+  </div>
+</a>

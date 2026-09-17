@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  /** Required. A figure with no alt text is a figure a screen reader skips. */
+  alt: string;
+  caption?: string;
+  /** Sunk background helps screenshots with white chrome read as artefacts. */
+  sunk?: boolean;
+}
+
+const { src, alt, caption, sunk = true } = Astro.props;
+---
+<figure>
+  <Image
+    src={src}
+    alt={alt}
+    widths={[640, 1024, 1600]}
+    sizes="(min-width: 1024px) 72rem, 92vw"
+    class:list={['w-full rounded-lg', sunk && 'bg-surface-sunk']}
+    loading="lazy"
+    decoding="async"
+  />
+  {caption && (
+    <figcaption class="mx-auto mt-3 max-w-(--container-measure) text-[0.875rem] leading-relaxed text-ink-muted">
+      {caption}
+    </figcaption>
+  )}
+</figure>
