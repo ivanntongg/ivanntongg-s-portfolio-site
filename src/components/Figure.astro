@@ -11,17 +11,35 @@ interface Props {
 }
 
 const { src, alt, caption, sunk = true } = Astro.props;
+
+// Animated GIFs must bypass astro:assets. Sharp processes only the first frame,
+// so optimising one silently turns a prototype recording into a still — and on
+// these files it also produced a LARGER output than the original.
+const isAnimated = src.format === 'gif';
+const imgClass = ['w-full rounded-lg', sunk && 'bg-surface-sunk'];
 ---
 <figure>
-  <Image
-    src={src}
-    alt={alt}
-    widths={[640, 1024, 1600]}
-    sizes="(min-width: 1024px) 72rem, 92vw"
-    class:list={['w-full rounded-lg', sunk && 'bg-surface-sunk']}
-    loading="lazy"
-    decoding="async"
-  />
+  {isAnimated ? (
+    <img
+      src={src.src}
+      alt={alt}
+      width={src.width}
+      height={src.height}
+      class:list={imgClass}
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <Image
+      src={src}
+      alt={alt}
+      widths={[640, 1024, 1600]}
+      sizes="(min-width: 1024px) 72rem, 92vw"
+      class:list={imgClass}
+      loading="lazy"
+      decoding="async"
+    />
+  )}
   {caption && (
     <figcaption class="mx-auto mt-3 max-w-(--container-measure) text-[0.875rem] leading-relaxed text-ink-muted">
       {caption}

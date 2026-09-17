@@ -24,21 +24,27 @@ const d = entry.data;
         {d.summary}
       </p>
 
-      <dl class="mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-5 border-t border-rule pt-6 text-[0.9375rem] sm:grid-cols-3">
+      <dl class="mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-5 border-t border-rule pt-6 text-[0.9375rem] sm:grid-cols-4">
+        {d.client && (
+          <div>
+            <dt class="text-ink-faint">Client</dt>
+            <dd class="mt-0.5">{d.client}</dd>
+          </div>
+        )}
         <div>
           <dt class="text-ink-faint">Role</dt>
           <dd class="mt-0.5">{d.role}</dd>
         </div>
-        {d.team && (
-          <div>
-            <dt class="text-ink-faint">Team</dt>
-            <dd class="mt-0.5">{d.team}</dd>
-          </div>
-        )}
         <div>
           <dt class="text-ink-faint">Timeframe</dt>
           <dd class="mt-0.5">{d.timeframe}</dd>
         </div>
+        {d.tools.length > 0 && (
+          <div>
+            <dt class="text-ink-faint">Tools</dt>
+            <dd class="mt-0.5">{d.tools.join(', ')}</dd>
+          </div>
+        )}
       </dl>
     </header>
 

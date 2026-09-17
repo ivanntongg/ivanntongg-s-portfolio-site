@@ -21,13 +21,18 @@ const work = defineCollection({
       // What YOU did. Reviewers discount work where the role is vague, so the
       // schema asks for it separately from the team.
       role: z.string(),
+      client: z.string().optional(),
       team: z.string().optional(),
       timeframe: z.string(),
+      tools: z.array(z.string()).default([]),
 
-      // At least one outcome is required. This is the single most common gap
-      // in designer portfolios and the fastest thing to fix.
+      // At least one outcome is required. `value` is the number; it is
+      // optional so a qualitative claim can be migrated now and quantified
+      // later. An outcome with a value renders as a stat; one without renders
+      // as a statement. Fill the values in: the stat row is what reviewers
+      // actually stop on.
       outcomes: z
-        .array(z.object({ label: z.string(), value: z.string() }))
+        .array(z.object({ label: z.string(), value: z.string().optional() }))
         .min(1, 'Every case study needs at least one outcome.'),
 
       cover: image(),
