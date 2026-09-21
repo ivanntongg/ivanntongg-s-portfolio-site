@@ -17,7 +17,7 @@ draft: false
 ---
 
 import Figure from '../../components/Figure.astro';
-import img01 from '../../assets/work/geareach/01.png';
+import Video from '../../components/Video.astro';
 import img02 from '../../assets/work/geareach/02.png';
 import img03 from '../../assets/work/geareach/03.png';
 import img04 from '../../assets/work/geareach/04.png';
@@ -36,11 +36,20 @@ Before the new system, Geareach relied heavily on manual tools like Excel
 spreadsheets and Word/PDF templates. While these methods worked as a quick fix,
 they created several critical issues.
 
-- Lens inventory data scattered across spreadsheets.
-- Lens requests handled via shared spreadsheets, prone to errors, duplicate
-  entries and missing records.
+<Video src="/work/geareach/v01.mp4" width={1920} height={908}
+  alt="Screen recording of the spreadsheet-based record keeping, showing duplicate and missing rows."
+  caption="Prone to errors, duplicate entries, and missing records." />
+
+<Video src="/work/geareach/v02.mp4" width={1596} height={848}
+  alt="Screen recording of a lens request being made in a shared spreadsheet."
+  caption="Lens requests via shared spreadsheets." />
+
+<Video src="/work/geareach/v03.mp4" width={1920} height={908}
+  alt="Screen recording of a second shared spreadsheet used for lens requests." />
+
+- Lens inventory data scattered in spreadsheets.
 - No standardized workflow for deals to contracts to influencer collaborations.
-- High chance of duplicate records and manual errors, with updates often going
+- High chance of duplicate records, manual errors and updates often went
   unnoticed.
 - Poor visibility for cross-department collaboration between Marketing, Sales
   and Logistics.
@@ -49,7 +58,7 @@ they created several critical issues.
 
 As the UI/UX Designer, I was responsible for:
 
-- Conducting requirement workshops with the client.
+- Conducting requirement workshops with client.
 - Creating user flow charts, sitemaps and user stories for clarity.
 - Designing high-fidelity prototypes that translated the client's customized
   needs into practical solutions.
@@ -58,7 +67,15 @@ As the UI/UX Designer, I was responsible for:
 
 <Figure src={img02} alt="Sitemap of the portal structure." caption="Sitemap mapping out the structure of the portal." />
 
-<Figure src={img03} alt="User flow diagram across key tasks." caption="User flow illustrating step-by-step interactions across key tasks." />
+<Video src="/work/geareach/v04.mp4" width={1920} height={902}
+  alt="Animated walkthrough of the user flow across key tasks."
+  caption="User flow illustrating step-by-step interactions across key tasks." />
+
+<Figure src={img03} alt="User stories grouped into modules." caption="User stories organized into modules for better clarity." />
+
+<Video src="/work/geareach/v05.mp4" width={892} height={634}
+  alt="Scroll through the detailed user story breakdown."
+  caption="Detailed user stories break down." />
 
 ## Key features
 
@@ -70,11 +87,23 @@ As the UI/UX Designer, I was responsible for:
 
 <Figure src={img04} alt="Table view for managing and filtering influencer records." caption="Centralized table view for managing and filtering influencer records." />
 
+<Video src="/work/geareach/v06.mp4" width={1576} height={792}
+  alt="Walkthrough of an influencer profile showing collaboration history and lenses on hand."
+  caption="Detailed influencer profile with history and lens tracking." />
+
 ### Lens and lens request list
 
 - Add and remove lenses, with duplicate records prevented.
 - Create new lens requests and send them to vendors.
 - Vendors receive notifications and approve requests directly in the system.
+
+<Video src="/work/geareach/v07.mp4" width={1576} height={794}
+  alt="Walkthrough of the lens inventory with specifications and loan status."
+  caption="Comprehensive lens inventory with detailed specifications and loan status tracking." />
+
+<Video src="/work/geareach/v08.mp4" width={1726} height={868}
+  alt="Walkthrough of the lens request screen showing request details."
+  caption="Lens request management UI with clear request details." />
 
 ### Auto contract generation
 
@@ -82,7 +111,13 @@ As the UI/UX Designer, I was responsible for:
 - Export as PDF or send as an e-contract by email.
 - Signed contracts can be uploaded back into the portal.
 
-<Figure src={img05} alt="Contract dashboard listing table." caption="Contract dashboard showing the listing table with quick access to creation and detail views." />
+<Video src="/work/geareach/v09.mp4" width={1578} height={796}
+  alt="Walkthrough of the contract dashboard and its listing table."
+  caption="Contract dashboard showing listing table with quick access to creation and detailed view." />
+
+<Video src="/work/geareach/v10.mp4" width={1574} height={794}
+  alt="Walkthrough of an influencer receiving an e-contract and choosing to review, sign or reject it."
+  caption="Influencer receives e-contract via portal with options to review, sign, or reject." />
 
 ### Campaigns and public workspace
 
@@ -90,12 +125,21 @@ As the UI/UX Designer, I was responsible for:
 - Calendar integration for tasks, meetings and reminders.
 - Board and list views for project status.
 
-<Figure src={img06} alt="Workspace with calendar, table and Kanban views." caption="Workspace with calendar, table and Kanban view for streamlined campaign management." />
+<Video src="/work/geareach/v11.mp4" width={1576} height={794}
+  alt="Walkthrough of the workspace switching between calendar, table and Kanban views."
+  caption="Workspace with calendar, table, and Kanban view for streamlined campaign management." />
+
+<Video src="/work/geareach/v12.mp4" width={1578} height={794}
+  alt="Walkthrough of a campaign detail page with its task checklist and influencer tools."
+  caption="Campaign detail page featuring task checklist and influencer management tools." />
 
 ## Collaboration and implementation
 
-- Internal workflow discussion and alignment.
-- Weekly client meetings to clarify requirements and validate custom workflows.
+<Figure src={img05} alt="Internal workflow discussion session." caption="Internal workflow discussion and alignment." />
+
+<Figure src={img06} alt="Weekly client meeting to clarify requirements." caption="Weekly client meetings to clarify requirements." />
+
+- Weekly design meetings with client to validate custom workflows.
 - Iterative testing of high-fidelity prototypes with end users.
 - Coordinated with developers to translate designs into a working system.
 

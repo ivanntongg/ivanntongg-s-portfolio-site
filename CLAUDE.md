@@ -23,8 +23,10 @@ src/
   content.config.ts      typed schema for case studies
   content/work/*.mdx     the case studies; template.mdx explains the structure
   assets/work/<slug>/    images, named 01..NN in document order
-  layouts/Base.astro     head, OG tags, skip link
-  components/            Figure, Outcomes, WorkCard, Nav, Footer
+public/
+  work/<slug>/           screen recordings, vNN.mp4, in document order
+  layouts/Base.astro     head, OG tags, skip link, in-view video observer
+  components/            Figure, Video, Outcomes, WorkCard, Nav, Footer
   pages/                 index, work/[...slug], about, 404
   styles/global.css      every design token
 ```
@@ -198,6 +200,18 @@ These have all bitten already. Do not rediscover them.
 - **Full-page screenshots miss lazy images.** A `fullPage` capture never scrolls,
   so `loading="lazy"` figures render as empty beds. Force them eager and scroll
   before capturing, or you will "fix" a bug that does not exist.
+- **Framer serves screen recordings as `<video>`, not `<img>`.** The first
+  migration scraped only `framerusercontent.com/images/` and silently dropped
+  26 `.mp4` walkthroughs, more than half the media on the site. If anything is
+  ever re-pulled from a Framer page, extract media in document order and count
+  `<video>` as well as `<img>`, then check the count against the number of
+  captions on the page. A caption with no media beside it means something was
+  missed.
+- **This container cannot decode H.264.** Its ffmpeg (Playwright's build) and
+  its Chromium both lack the decoder, so video playback and poster-frame
+  generation cannot be verified or produced here. Video dimensions come from
+  parsing the MP4 `tkhd` box directly. Do not read a blank video in a headless
+  screenshot as a bug in the page.
 - **The artifact service reserves paths starting with `_`.** Publishing `dist/`
   as a preview needs `_astro` renamed and every reference rewritten.
 
@@ -210,4 +224,6 @@ These have all bitten already. Do not rediscover them.
 - [ ] `src/pages/about.astro` — TODOs
 - [x] self-host the display face (Newsreader + IBM Plex Sans)
 - [ ] self-host the resume PDF instead of the Google Drive link
+- [ ] generate video poster frames (see the note in `Video.astro`); without
+      them a reduced-motion reader sees an empty bed
 - [ ] rename the repo from `git_test`

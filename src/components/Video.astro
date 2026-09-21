@@ -1,0 +1,53 @@
+---
+interface Props {
+  /** Path under /work/<slug>/, e.g. "/work/geareach/v01.mp4". */
+  src: string;
+  /** Required. Describes what the recording shows, for anyone who cannot see it. */
+  alt: string;
+  caption?: string;
+  /** Intrinsic size, read from the file's container. Reserves space so the
+      page does not jump when the video loads. */
+  width: number;
+  height: number;
+  /**
+   * First-frame still, e.g. "/work/geareach/v01.jpg". Optional but wanted:
+   * without one, a reduced-motion reader and anyone on a slow connection sees
+   * an empty bed until the file arrives. Generate them with:
+   *   for f in public/work/*\/*.mp4; do
+   *     ffmpeg -y -ss 0.4 -i "$f" -frames:v 1 -q:v 4 "${f%.mp4}.jpg"
+   *   done
+   * (Not generated in this repo yet: the container's ffmpeg and Chromium are
+   * both built without an H.264 decoder, so neither can read these files.)
+   */
+  poster?: string;
+}
+
+const { src, alt, caption, width, height, poster } = Astro.props;
+---
+<figure>
+  <div class="rounded-lg bg-surface-sunk p-2 sm:p-4">
+    {/* No autoplay attribute: playback is started by the observer in Base.astro
+        only when the video is on screen, and never under reduced motion. With
+        a dozen recordings on one page, autoplaying all of them would pull tens
+        of megabytes the reader never asked for. */}
+    <video
+      class="w-full rounded-md border border-rule bg-surface"
+      src={src}
+      width={width}
+      height={height}
+      style={`aspect-ratio: ${width} / ${height}`}
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={poster}
+      aria-label={alt}
+      data-autoplay-in-view
+    ></video>
+  </div>
+  {caption && (
+    <figcaption class="t-meta mx-auto mt-4 max-w-(--container-measure) text-ink-muted">
+      {caption}
+    </figcaption>
+  )}
+</figure>

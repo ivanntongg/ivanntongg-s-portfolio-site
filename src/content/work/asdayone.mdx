@@ -11,14 +11,14 @@ outcomes:
   - label: 'Improved collaboration between designers and developers.'
   - label: 'Created a central source of truth for the product team.'
 cover: '../../assets/work/asdayone/01.jpg'
-coverAlt: 'Interface built entirely from standardised design system components.'
+coverAlt: 'Interface fully constructed using standardised design system components.'
 tags: ['design systems', 'documentation']
 order: 3
 draft: false
 ---
 
 import Figure from '../../components/Figure.astro';
-import img01 from '../../assets/work/asdayone/01.jpg';
+import Video from '../../components/Video.astro';
 import img02 from '../../assets/work/asdayone/02.jpg';
 import img03 from '../../assets/work/asdayone/03.jpg';
 import img04 from '../../assets/work/asdayone/04.jpg';
@@ -46,7 +46,11 @@ their own way of building UI. This led to:
 The challenge was clear: create a scalable, flexible and accessible design system
 that worked across multiple projects while establishing consistency.
 
-<Figure src={img02} alt="Unorganised design file with inconsistent styling." caption="The starting point: an unorganised file with inconsistent styling and repeated components." />
+<Figure src={img02} alt="Unorganised design file with inconsistent styling." caption="Unorganized design file without consistent styling." />
+
+<Figure src={img03} alt="Repeated component variants that could be unified." caption="Repetitive components that could be unified." />
+
+<Figure src={img04} alt="Side-by-side showing where the design and the build diverged." caption="Discrepancy between design and development." />
 
 ## Building the system
 
@@ -66,9 +70,11 @@ to streamline adoption.
 Collaboration was essential. I worked closely with developers to align on
 feasibility and with designers to ensure usability across workflows.
 
-<Figure src={img03} alt="Primitives and variables defined for the system." caption="Defining primitives and variables as the foundation of the system." />
+<Figure src={img05} alt="Animated view of the primitives and variables being defined." caption="Began with defining primitives and variables to build the design system." />
 
-<Figure src={img04} alt="Component library with multiple variants." caption="Building a scalable component library with multiple variants." />
+<Figure src={img06} alt="Animated view of the full inventory of component types and UI elements." caption="Defined all component types and UI elements used." />
+
+<Figure src={img07} alt="Animated view of the component library expanding across its variants." caption="Building a scalable component library with multiple variants." />
 
 ## Interaction and visual design
 
@@ -77,13 +83,16 @@ demonstrating component behaviors, transitions and micro-interactions. Each
 component was documented with usage guidelines, so both designers and developers
 could apply them confidently.
 
-<Figure src={img05} alt="Animated guideline showing button states." caption="Design guideline showing button states and usage." />
+<Figure src={img08} alt="Guideline sheet showing button states and their usage." caption="Design guideline showcasing button states and usage." />
 
-<Figure src={img06} alt="Animated mockup of components in context." caption="Visual mockup demonstrating component usage within the UI." />
+<Figure src={img09} alt="Animated mockup of the components in context within a product screen." caption="Visual mockup demonstrating component usage within the UI." />
 
 ## Impact
 
+The introduction of the AsDayOne design system delivered measurable improvements.
 What started as a fragmented workflow became a structured, scalable system that
 continues to support the company's growing product ecosystem.
 
-<Figure src={img08} alt="Example screen built entirely from the design system." caption="Example screen demonstrating complete use of the design system." />
+<Video src="/work/asdayone/v01.mp4" width={1188} height={702}
+  alt="Walkthrough of a finished screen assembled entirely from design system components."
+  caption="Example screen demonstrating complete use of the design system." />

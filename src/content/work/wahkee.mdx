@@ -18,7 +18,7 @@ draft: false
 ---
 
 import Figure from '../../components/Figure.astro';
-import img01 from '../../assets/work/wahkee/01.png';
+import Video from '../../components/Video.astro';
 import img02 from '../../assets/work/wahkee/02.png';
 import img03 from '../../assets/work/wahkee/03.png';
 import img04 from '../../assets/work/wahkee/04.png';
@@ -29,6 +29,21 @@ Sale system designed for both web and mobile. The POS was built for shop
 management, enabling smooth transactions, inventory tracking and order management
 across retail and online channels.
 
+## Initial challenge
+
+The shop needed a POS system that connected seamlessly with its e-commerce
+platform. Prior to this, cashiers relied on an older system that caused:
+
+- Slow checkout experiences.
+- Human errors in inventory updates.
+- A disconnect between in-store and online stock management.
+
+<Figure src={img02} alt="The previous point of sale interface." caption="The previous POS system Wah Kee relied on." />
+
+<Figure src={img03} alt="Stock detail setup screen in the old system." caption="Stock detail setup with outdated layout." />
+
+<Figure src={img04} alt="The old stock management interface." caption="Previous stock management interface." />
+
 ## Design goals
 
 As the UI/UX Designer, I was responsible for:
@@ -38,7 +53,7 @@ As the UI/UX Designer, I was responsible for:
 - Ensuring both systems shared a consistent visual language, optimised workflows
   and easy-to-learn interfaces.
 
-<Figure src={img02} alt="Visual identity applied across web and mobile POS." caption="Consistent visual identity applied to both web and mobile POS systems." />
+<Figure src={img05} alt="Visual identity applied across web and mobile POS." caption="Consistent visual identity applied to both web and mobile POS systems." />
 
 ## Key features
 
@@ -49,13 +64,23 @@ As the UI/UX Designer, I was responsible for:
 - Quick access shortcuts to frequently used modules.
 - Clean, prioritised layout to avoid overwhelming users.
 
+<Video src="/work/wahkee/v01.mp4" width={1308} height={870}
+  alt="Walkthrough of the POS dashboard showing sales figures and stock alerts."
+  caption="Dashboard providing real-time insights into sales, stock alerts, and daily performance." />
+
 ### Open and close operation
 
 - Logging system ensures accountability per cashier.
 - Auto-generated summary report covering transactions, refunds and adjustments.
 - Secure lockout after closure to prevent late edits.
 
-<Figure src={img03} alt="POS opening procedure at the start of the day." caption="Opening the POS machine at the start of the day." />
+<Video src="/work/wahkee/v02.mp4" width={1306} height={870}
+  alt="Walkthrough of opening the POS machine at the start of the day."
+  caption="Opening the POS machine at the start of the day." />
+
+<Video src="/work/wahkee/v03.mp4" width={1308} height={870}
+  alt="Walkthrough of the end-of-day closing process and summary report."
+  caption="Closing process to ensure end accountability." />
 
 ### Hold order
 
@@ -63,14 +88,22 @@ As the UI/UX Designer, I was responsible for:
 - Visual queue of held orders for quick retrieval.
 - Improves customer service flow during peak hours.
 
-<Figure src={img04} alt="Order management with hold and resume." caption="Order management with the ability to hold and resume." />
+<Video src="/work/wahkee/v04.mp4" width={1304} height={866}
+  alt="Walkthrough of holding an order and resuming it from the queue."
+  caption="Order management with the ability to hold and resume." />
 
 ### Web and mobile flow alignment
 
 - Unified design system for visual consistency.
 - Identical workflows across platforms.
 
-<Figure src={img05} alt="POS experience across web and mobile." caption="The POS experience aligned across web and mobile." />
+<Video src="/work/wahkee/v05.mp4" width={1304} height={866}
+  alt="Walkthrough of the POS checkout flow on the web interface."
+  caption="POS experience across web interface." />
+
+<Video src="/work/wahkee/v06.mp4" width={396} height={832}
+  alt="Walkthrough of the same checkout flow on the mobile POS app."
+  caption="Mobile POS experience, following the same flow as the web interface." />
 
 ## Outcome
 

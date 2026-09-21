@@ -51,5 +51,34 @@ const og = new URL(ogImage ?? '/og-default.png', Astro.site);
       <slot />
     </main>
     <Footer />
+
+    <script is:inline>
+      // Plays a recording only while it is on screen, and never for a reader
+      // who has asked for reduced motion — they get controls instead. One
+      // observer for the page rather than a listener per video.
+      (() => {
+        const vids = document.querySelectorAll('video[data-autoplay-in-view]');
+        if (!vids.length) return;
+        const still = matchMedia('(prefers-reduced-motion: reduce)');
+        const apply = () => {
+          if (still.matches) {
+            vids.forEach((v) => { v.pause(); v.controls = true; v.loop = false; });
+            return;
+          }
+          vids.forEach((v) => { v.controls = false; v.loop = true; });
+          const io = new IntersectionObserver(
+            (entries) => entries.forEach((e) => {
+              const v = e.target;
+              if (e.isIntersecting) { v.play().catch(() => { v.controls = true; }); }
+              else v.pause();
+            }),
+            { threshold: 0.25 }
+          );
+          vids.forEach((v) => io.observe(v));
+        };
+        apply();
+        still.addEventListener('change', apply);
+      })();
+    </script>
   </body>
 </html>
