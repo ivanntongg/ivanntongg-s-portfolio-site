@@ -23,6 +23,12 @@ const og = new URL(ogImage ?? '/og-default.png', Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Only the two latin files are preloaded. latin-ext and italic are
+         behind unicode-range and must stay lazy, or we pay for glyphs most
+         pages never use. -->
+    <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/plexsans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content="website" />

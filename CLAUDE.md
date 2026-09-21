@@ -121,9 +121,27 @@ is settled here.
   Current weights are 400 and 560; leave them unless the chosen face needs
   otherwise.
 
-Current state: the display face resolves from a system stack, which violates
-both blocks and renders differently per platform. This is the top outstanding
-visual decision. State the choice before implementing it.
+**Settled.** Two self-hosted faces, both OFL, both in `public/fonts/`:
+
+- **Newsreader** (Production Type) is the editorial voice: hero, case study
+  titles, project titles on the index, section headings, and long-form body.
+  Variable, with weight *and* optical-size axes, so one file serves a 65px hero
+  and 19px body with the drawing adjusted for each. `font-optical-sizing: auto`
+  is set on `body`; do not disable it.
+- **IBM Plex Sans** is the interface voice: nav, tags, metadata, card
+  summaries, the deck under a case study title.
+
+The split is content versus chrome, and it maps to the work: serif for the
+writing, sans for the system. Anything that is a *title* is serif, even in a
+card; anything that is a *label* is sans. Keeping that line clean is what stops
+the two faces reading as an accident.
+
+`--text-read` (19px) is the body size for Newsreader. A serif sets optically
+smaller than a sans at the same px, so this is a compensation, not a second
+scale. Do not add more off-scale sizes.
+
+Only the two latin files are preloaded in `Base.astro`. latin-ext and italic sit
+behind `unicode-range` and must stay lazy.
 
 ### How that applies to this site specifically
 
@@ -190,6 +208,6 @@ These have all bitten already. Do not rediscover them.
       canonical URLs, sitemap and OG tags and fails silently when wrong
 - [ ] `public/og-default.png` and `public/favicon.svg` — both placeholders
 - [ ] `src/pages/about.astro` — TODOs
-- [ ] self-host the display face
+- [x] self-host the display face (Newsreader + IBM Plex Sans)
 - [ ] self-host the resume PDF instead of the Google Drive link
 - [ ] rename the repo from `git_test`

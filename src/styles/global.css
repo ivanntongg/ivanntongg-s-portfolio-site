@@ -1,5 +1,83 @@
 @import "tailwindcss";
 
+/* ─── Faces ──────────────────────────────────────────────────────────────────
+   Self-hosted, not Google's CDN: no third-party request, no dependency on a
+   CDN staying up, and the whole site stays portable as a folder of files.
+
+   Newsreader (Production Type, OFL) carries the editorial voice: display,
+   case study titles, section headings and long-form body. It is a variable
+   font with both weight and optical-size axes, so the same file serves a 65px
+   hero and 17px body text with the drawing adjusted for each.
+
+   IBM Plex Sans (IBM, OFL) carries the interface voice: nav, tags, metadata,
+   card text. Keeping the chrome in a technical sans stops an all-serif site
+   from reading as a literary magazine rather than a designer's portfolio, and
+   the split maps to the content: serif for the writing, sans for the system.
+
+   Each face loads latin first; latin-ext only downloads if a page actually
+   needs those glyphs. Newsreader italic likewise.
+   ───────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-latin-ext.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-italic-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-italic-latin-ext.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Plex Sans";
+  src: url("/fonts/plexsans-latin.woff2") format("woff2");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plex Sans";
+  src: url("/fonts/plexsans-latin-ext.woff2") format("woff2");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ─── Design tokens ──────────────────────────────────────────────────────────
    The whole visual system. Change values here, not in components.
 
@@ -16,8 +94,8 @@
   /* Swap either of these for a real licensed face and the whole site follows.
      Until then the stacks are chosen to degrade well rather than to look like
      a placeholder. */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, ui-serif, serif;
+  --font-sans: "Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, ui-serif, serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
   /* Light: warm cream ground, warm brown ink. Never #FFF, never #000 —
@@ -39,7 +117,10 @@
                                 caps read as a different register, not as the
                                 next step down. */
   --text-meta: 0.875rem;     /* 14px */
-  --text-body: 1.0625rem;    /* 17px — base */
+  --text-body: 1.0625rem;    /* 17px — base, interface register */
+  --text-read: 1.1875rem;    /* 19px — the same base optically, for Newsreader.
+                                A serif sets smaller than a sans at equal px;
+                                this is a compensation, not a second scale. */
   --text-lead: 1.3125rem;    /* 21px */
   --text-h2: 1.6875rem;      /* 27px */
   --text-h1: 2.0625rem;      /* 33px */
@@ -98,6 +179,7 @@ body {
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: 1.65;
+  font-optical-sizing: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -139,8 +221,9 @@ body {
    Applied once by the case study layout so MDX carries no styling.
    ───────────────────────────────────────────────────────────────────────── */
 .prose {
-  font-size: var(--text-body);
-  line-height: 1.7;
+  font-family: var(--font-serif);
+  font-size: var(--text-read);
+  line-height: 1.62;
 }
 .prose > * + * { margin-block-start: 1.45em; }
 
@@ -152,7 +235,6 @@ body {
 /* Section headings get real size contrast against the body. A heading only
    1.05x the body size makes the page read as an even grey field. */
 .prose h2 {
-  font-family: var(--font-serif);
   font-size: var(--text-h2);
   font-weight: 400;
   line-height: 1.2;
@@ -161,13 +243,13 @@ body {
   margin-block-end: 0.5rem;
 }
 .prose h3 {
-  font-size: var(--text-body);
-  font-weight: 560;
+  font-size: var(--text-read);
+  font-weight: 620;
   line-height: 1.35;
   margin-block-start: 2.25rem;
   margin-block-end: -0.6em;
 }
-.prose strong { font-weight: 560; }
+.prose strong { font-weight: 620; }
 .prose a {
   color: inherit;
   text-decoration: underline;
