@@ -144,6 +144,11 @@ body {
 }
 .prose > * + * { margin-block-start: 1.45em; }
 
+/* The prose element spans the wide container so figures can use its full
+   width. Text clamps to the measure and stays on the page's single left
+   edge; only figures are allowed past it. */
+.prose > :not(figure) { max-width: var(--container-measure); }
+
 /* Section headings get real size contrast against the body. A heading only
    1.05x the body size makes the page read as an even grey field. */
 .prose h2 {
@@ -197,9 +202,10 @@ body {
 }
 .prose pre code { background: none; padding: 0; }
 
-/* Figures break past the measure: images want more room than text does. */
+/* Figures break past the measure: images want more room than text does.
+   They extend rightward from the shared left edge rather than centring, which
+   would give the page a second left edge. */
 .prose figure {
-  margin-block: 3rem;
-  width: min(var(--container-wide), 92vw);
-  margin-inline: calc(50% - min(var(--container-wide), 92vw) / 2);
+  margin-block: 3.5rem;
+  width: 100%;
 }
