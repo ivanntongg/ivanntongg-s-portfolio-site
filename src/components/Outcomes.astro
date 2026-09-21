@@ -10,20 +10,20 @@ const stats = outcomes.filter((o) => o.value);
 const claims = outcomes.filter((o) => !o.value);
 ---
 {stats.length > 0 && (
-  <dl class="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3">
+  <dl class="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3">
     {stats.map((o) => (
       <div>
-        <dd class="font-serif text-[2rem] leading-none tracking-tight">{o.value}</dd>
-        <dt class="mt-2 text-[0.8125rem] leading-snug text-ink-muted">{o.label}</dt>
+        <dd class="t-title font-normal">{o.value}</dd>
+        <dt class="t-meta mt-3 text-ink-muted">{o.label}</dt>
       </div>
     ))}
   </dl>
 )}
 {claims.length > 0 && (
-  <ul class:list={['max-w-(--container-measure) space-y-2.5', stats.length > 0 && 'mt-10']}>
+  <ul class:list={['max-w-(--container-measure) space-y-3', stats.length > 0 && 'mt-12']}>
     {claims.map((o) => (
-      <li class="flex gap-3 text-[0.9375rem] leading-relaxed">
-        <span aria-hidden="true" class="mt-2.5 h-px w-4 shrink-0 bg-ink-faint"></span>
+      <li class="flex gap-4">
+        <span aria-hidden="true" class="mt-3 h-px w-5 shrink-0 bg-ink-faint"></span>
         <span>{o.label}</span>
       </li>
     ))}

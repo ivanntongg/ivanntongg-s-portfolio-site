@@ -13,61 +13,54 @@ export const getStaticPaths = (async () => {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
+
+const meta = [
+  d.client && { label: 'Client', value: d.client },
+  { label: 'Role', value: d.role },
+  d.team && { label: 'Team', value: d.team },
+  { label: 'Timeframe', value: d.timeframe },
+  d.tools.length > 0 && { label: 'Tools', value: d.tools.join(', ') },
+].filter(Boolean) as { label: string; value: string }[];
 ---
 <Base title={`${d.title} — ${d.summary}`} description={d.summary}>
   <article>
-    <header class="mx-auto w-full max-w-(--container-wide) px-6 pt-12 pb-14 sm:px-10 sm:pt-20">
-      <h1 class="max-w-[18ch] font-serif text-[clamp(2rem,5vw,3.25rem)] leading-[1.06] tracking-[-0.03em]">
-        {d.title}
-      </h1>
-      <p class="mt-5 max-w-(--container-measure) text-[1.125rem] leading-relaxed text-ink-muted">
-        {d.summary}
-      </p>
+    <header class="mx-auto w-full max-w-(--container-wide) px-6 pt-16 pb-16 sm:px-10 sm:pt-24">
+      {d.tags.length > 0 && <p class="t-label mb-6">{d.tags.join(' · ')}</p>}
+      <h1 class="t-title max-w-[20ch] text-balance">{d.title}</h1>
+      <p class="t-lead mt-6 max-w-(--container-measure)">{d.summary}</p>
 
-      <dl class="mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-5 border-t border-rule pt-6 text-[0.9375rem] sm:grid-cols-4">
-        {d.client && (
+      <dl class="mt-14 grid max-w-4xl grid-cols-2 gap-x-8 gap-y-6 border-t border-rule pt-8 sm:grid-cols-4">
+        {meta.map((m) => (
           <div>
-            <dt class="text-ink-faint">Client</dt>
-            <dd class="mt-0.5">{d.client}</dd>
+            <dt class="t-label">{m.label}</dt>
+            <dd class="t-meta mt-1.5">{m.value}</dd>
           </div>
-        )}
-        <div>
-          <dt class="text-ink-faint">Role</dt>
-          <dd class="mt-0.5">{d.role}</dd>
-        </div>
-        <div>
-          <dt class="text-ink-faint">Timeframe</dt>
-          <dd class="mt-0.5">{d.timeframe}</dd>
-        </div>
-        {d.tools.length > 0 && (
-          <div>
-            <dt class="text-ink-faint">Tools</dt>
-            <dd class="mt-0.5">{d.tools.join(', ')}</dd>
-          </div>
-        )}
+        ))}
       </dl>
     </header>
 
     <div class="mx-auto w-full max-w-(--container-wide) px-6 sm:px-10">
-      <Image
-        src={d.cover}
-        alt={d.coverAlt}
-        widths={[800, 1280, 1920]}
-        sizes="(min-width: 1024px) 72rem, 92vw"
-        class="aspect-16/9 w-full rounded-xl bg-surface-sunk object-cover"
-        loading="eager"
-        fetchpriority="high"
-      />
+      <div class="rounded-lg bg-surface-sunk p-2 sm:p-4">
+        <Image
+          src={d.cover}
+          alt={d.coverAlt}
+          widths={[800, 1280, 1920]}
+          sizes="(min-width: 1024px) 72rem, 92vw"
+          class="aspect-16/9 w-full rounded-md border border-rule object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
     </div>
 
-    <section class="mx-auto w-full max-w-(--container-wide) px-6 pt-16 sm:px-10">
-      <h2 class="text-[0.8125rem] font-medium tracking-wide text-ink-muted uppercase">Outcomes</h2>
-      <div class="mt-6 border-t border-rule pt-8">
+    <section class="mx-auto w-full max-w-(--container-wide) px-6 pt-24 sm:px-10">
+      <h2 class="t-label">Outcomes</h2>
+      <div class="mt-8 border-t border-rule pt-10">
         <Outcomes outcomes={d.outcomes} />
       </div>
     </section>
 
-    <div class="prose mx-auto mt-4 w-full max-w-(--container-measure) px-6 pb-16 sm:px-0">
+    <div class="prose mx-auto mt-8 w-full max-w-(--container-measure) px-6 pb-16 sm:px-0">
       <Content />
     </div>
   </article>

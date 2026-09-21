@@ -1,39 +1,82 @@
 @import "tailwindcss";
 
-/* Design tokens. This is your whole visual system in one place: change these
-   and the site changes. Resist adding one-off colours in components. */
+/* ─── Design tokens ──────────────────────────────────────────────────────────
+   The whole visual system. Change values here, not in components.
+
+   Colour: warm neutrals only. Every hue sits between 45 and 80 so nothing on
+   the page mixes a warm ink with a cool border, which is the kind of mismatch
+   nobody notices consciously and everybody feels. oklch keeps the lightness
+   steps perceptually even, so `ink-muted` really does read as one step back
+   from `ink` rather than falling off a cliff.
+
+   Type: one ratio (1.25, Major Third) from a 17px base. Nothing is picked by
+   eye. Two deliberate exceptions are noted where they occur.
+   ───────────────────────────────────────────────────────────────────────── */
 @theme {
-  --font-sans: "Inter var", Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  /* Swap either of these for a real licensed face and the whole site follows.
+     Until then the stacks are chosen to degrade well rather than to look like
+     a placeholder. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, ui-serif, serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Neutrals carry the design. Keep the accent rare so it means something. */
-  --color-ink: oklch(0.18 0.01 260);
-  --color-ink-muted: oklch(0.52 0.01 260);
-  --color-ink-faint: oklch(0.72 0.01 260);
-  --color-surface: oklch(0.99 0.002 260);
-  --color-surface-sunk: oklch(0.96 0.004 260);
-  --color-rule: oklch(0.90 0.005 260);
-  --color-accent: oklch(0.55 0.19 258);
+  /* Light: warm cream ground, warm brown ink. Never #FFF, never #000 —
+     21:1 is physically uncomfortable over a long case study. */
+  --color-surface:      oklch(0.985 0.006 75);
+  --color-surface-sunk: oklch(0.955 0.010 75);
+  --color-ink:          oklch(0.320 0.020 60);
+  --color-ink-muted:    oklch(0.515 0.016 68);
+  /* Decorative only: rules, list markers, underline colour. It does not pass
+     AA for text at any size, so never set it on a string. */
+  --color-ink-faint:    oklch(0.640 0.014 72);
+  --color-rule:         oklch(0.900 0.008 75);
+  /* Terracotta. Rationed: under five appearances per page, or none at all.
+     The work supplies the colour; the chrome stays quiet. */
+  --color-accent:       oklch(0.550 0.130 45);
 
-  --text-display: 4rem;
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.035em;
+  /* Type scale: 17 · 21 · 27 · 33 · 42 · 52 · 65 */
+  --text-label: 0.75rem;     /* 12px. Off-scale by design: tracked-out small
+                                caps read as a different register, not as the
+                                next step down. */
+  --text-meta: 0.875rem;     /* 14px */
+  --text-body: 1.0625rem;    /* 17px — base */
+  --text-lead: 1.3125rem;    /* 21px */
+  --text-h2: 1.6875rem;      /* 27px */
+  --text-h1: 2.0625rem;      /* 33px */
+  --text-title: 3.25rem;     /* 52px */
+  --text-display: 4.0625rem; /* 65px */
 
-  /* One measure for all long-form text. Reading comfort beats full-bleed. */
+  /* Tracking moves opposite to size. Untracked display type is the single
+     most common tell in an amateur portfolio. */
+  --tracking-display: -0.035em;
+  --tracking-title: -0.03em;
+  --tracking-heading: -0.02em;
+  --tracking-label: 0.08em;
+
+  /* One measure for all long-form text: ~68 characters. */
   --container-measure: 38rem;
   --container-wide: 72rem;
 }
 
+/* Dark: its own palette, not an inversion. Same warm hues, so the site keeps
+   its character; ink lands at off-white rather than #FFF.
+
+   These are plain custom-property overrides on :root, NOT a second @theme
+   block. Tailwind v4 hoists every @theme to the top level and silently drops
+   the media query around it, so a nested one does not scope to dark — it
+   overwrites the light palette unconditionally. Utilities compile to
+   var(--color-*), so overriding the variables here is what actually works. */
 @media (prefers-color-scheme: dark) {
-  @theme {
-    --color-ink: oklch(0.95 0.005 260);
-    --color-ink-muted: oklch(0.68 0.01 260);
-    --color-ink-faint: oklch(0.48 0.01 260);
-    --color-surface: oklch(0.16 0.008 260);
-    --color-surface-sunk: oklch(0.21 0.01 260);
-    --color-rule: oklch(0.30 0.01 260);
-    --color-accent: oklch(0.72 0.15 258);
+  :root {
+    --color-surface:      oklch(0.200 0.012 65);
+    --color-surface-sunk: oklch(0.255 0.014 65);
+    --color-ink:          oklch(0.930 0.008 80);
+    --color-ink-muted:    oklch(0.715 0.012 78);
+    /* Decorative only. See the light-mode note. */
+    --color-ink-faint:    oklch(0.560 0.012 75);
+    --color-rule:         oklch(0.330 0.012 70);
+    --color-accent:       oklch(0.720 0.110 48);
+    color-scheme: dark;
   }
 }
 
@@ -53,48 +96,91 @@ body {
   background: var(--color-surface);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "cv05", "ss01";
+  font-size: var(--text-body);
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Long-form case study body. Applied once by the CaseStudy layout so MDX stays
-   free of styling noise. */
-.prose {
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  color: var(--color-ink);
+/* ─── Type utilities ───────────────────────────────────────────────────────
+   Named registers rather than ad-hoc sizes at call sites. If a component
+   needs a size that is not here, the scale is wrong, not the component.
+   ───────────────────────────────────────────────────────────────────────── */
+.t-display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.375rem, 7vw, var(--text-display));
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
 }
-.prose > * + * { margin-block-start: 1.4em; }
-.prose h2 {
-  margin-block-start: 3.5rem;
-  margin-block-end: 0.25rem;
-  font-size: 1.05rem;
+.t-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.0625rem, 5.5vw, var(--text-title));
+  line-height: 1.08;
+  letter-spacing: var(--tracking-title);
+}
+.t-lead {
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+.t-label {
+  font-size: var(--text-label);
   font-weight: 560;
-  letter-spacing: 0.01em;
-  color: var(--color-ink);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+.t-meta {
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+
+/* ─── Long-form body ───────────────────────────────────────────────────────
+   Applied once by the case study layout so MDX carries no styling.
+   ───────────────────────────────────────────────────────────────────────── */
+.prose {
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+.prose > * + * { margin-block-start: 1.45em; }
+
+/* Section headings get real size contrast against the body. A heading only
+   1.05x the body size makes the page read as an even grey field. */
+.prose h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-heading);
+  margin-block-start: 3.5rem;
+  margin-block-end: 0.5rem;
 }
 .prose h3 {
-  margin-block-start: 2.25rem;
-  font-size: 1rem;
+  font-size: var(--text-body);
   font-weight: 560;
-  color: var(--color-ink-muted);
+  line-height: 1.35;
+  margin-block-start: 2.25rem;
+  margin-block-end: -0.6em;
 }
+.prose strong { font-weight: 560; }
 .prose a {
-  color: var(--color-ink);
+  color: inherit;
   text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-decoration-color: var(--color-ink-faint);
   text-underline-offset: 0.2em;
+  transition: text-decoration-color 150ms ease-out;
 }
 .prose a:hover { text-decoration-color: var(--color-accent); }
-.prose ul, .prose ol { padding-inline-start: 1.25em; }
-.prose li + li { margin-block-start: 0.4em; }
+.prose ul, .prose ol { padding-inline-start: 1.15em; }
 .prose ul { list-style: disc; }
 .prose ol { list-style: decimal; }
+.prose li::marker { color: var(--color-ink-faint); }
+.prose li + li { margin-block-start: 0.45em; }
 .prose blockquote {
-  border-inline-start: 2px solid var(--color-rule);
+  border-inline-start: 1px solid var(--color-rule);
   padding-inline-start: 1.25rem;
   color: var(--color-ink-muted);
-  font-style: normal;
 }
 .prose code {
   font-family: var(--font-mono);
@@ -111,9 +197,9 @@ body {
 }
 .prose pre code { background: none; padding: 0; }
 
-/* Figures break the measure deliberately: images want more room than text. */
+/* Figures break past the measure: images want more room than text does. */
 .prose figure {
-  margin-block: 2.75rem;
+  margin-block: 3rem;
   width: min(var(--container-wide), 92vw);
   margin-inline: calc(50% - min(var(--container-wide), 92vw) / 2);
 }

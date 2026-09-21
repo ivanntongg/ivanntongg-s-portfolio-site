@@ -9,23 +9,19 @@ const work = (await getCollection('work', ({ data }) => !data.draft)).sort(
 );
 ---
 <Base title={`${SITE.name} — ${SITE.role}`} description={SITE.tagline}>
-  <section class="mx-auto w-full max-w-(--container-wide) px-6 pt-12 pb-24 sm:px-10 sm:pt-20">
-    <h1 class="max-w-[22ch] font-serif text-[clamp(2.25rem,6vw,var(--text-display))] leading-[1.05] tracking-[-0.03em]">
-      {SITE.tagline}
-    </h1>
+  <section class="mx-auto w-full max-w-(--container-wide) px-6 pt-16 pb-32 sm:px-10 sm:pt-28">
+    <h1 class="t-display max-w-[24ch] text-balance">{SITE.tagline}</h1>
   </section>
 
   <section class="mx-auto w-full max-w-(--container-wide) px-6 sm:px-10">
-    <h2 class="border-t border-rule pt-6 text-[0.8125rem] font-medium tracking-wide text-ink-muted uppercase">
-      Selected work
-    </h2>
-    <ul class="mt-10 grid gap-x-10 gap-y-16 sm:grid-cols-2">
+    <h2 class="t-label border-t border-rule pt-6">Selected work</h2>
+    <ul class="mt-12 grid gap-x-10 gap-y-20 sm:grid-cols-2">
       {work.map((entry) => (
         <li><WorkCard entry={entry} /></li>
       ))}
     </ul>
     {work.length === 0 && (
-      <p class="mt-10 text-ink-muted">
+      <p class="mt-12 text-ink-muted">
         No published case studies yet. Add an .mdx file under src/content/work/.
       </p>
     )}

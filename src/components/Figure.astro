@@ -6,42 +6,51 @@ interface Props {
   /** Required. A figure with no alt text is a figure a screen reader skips. */
   alt: string;
   caption?: string;
-  /** Sunk background helps screenshots with white chrome read as artefacts. */
-  sunk?: boolean;
+  /**
+   * Inset the image in a sunk bed. Default on: these are UI screenshots, most
+   * of them light-on-light, and dropped straight onto a cream page they lose
+   * their edges and the section turns into a field of pale rectangles. The bed
+   * plus a hairline border gives every screenshot containment without drawing
+   * a box around it.
+   */
+  bed?: boolean;
 }
 
-const { src, alt, caption, sunk = true } = Astro.props;
+const { src, alt, caption, bed = true } = Astro.props;
 
-// Animated GIFs must bypass astro:assets. Sharp processes only the first frame,
-// so optimising one silently turns a prototype recording into a still — and on
-// these files it also produced a LARGER output than the original.
+// Animated GIFs must bypass astro:assets. Sharp reads only the first frame, so
+// optimising one silently turns a prototype recording into a still.
 const isAnimated = src.format === 'gif';
-const imgClass = ['w-full rounded-lg', sunk && 'bg-surface-sunk'];
+
+// Nested radius: the image is always tighter than its bed.
+const imgClass = ['w-full rounded-md', bed && 'border border-rule'];
 ---
 <figure>
-  {isAnimated ? (
-    <img
-      src={src.src}
-      alt={alt}
-      width={src.width}
-      height={src.height}
-      class:list={imgClass}
-      loading="lazy"
-      decoding="async"
-    />
-  ) : (
-    <Image
-      src={src}
-      alt={alt}
-      widths={[640, 1024, 1600]}
-      sizes="(min-width: 1024px) 72rem, 92vw"
-      class:list={imgClass}
-      loading="lazy"
-      decoding="async"
-    />
-  )}
+  <div class:list={['rounded-lg', bed && 'bg-surface-sunk p-2 sm:p-4']}>
+    {isAnimated ? (
+      <img
+        src={src.src}
+        alt={alt}
+        width={src.width}
+        height={src.height}
+        class:list={imgClass}
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <Image
+        src={src}
+        alt={alt}
+        widths={[640, 1024, 1600]}
+        sizes="(min-width: 1024px) 72rem, 92vw"
+        class:list={imgClass}
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+  </div>
   {caption && (
-    <figcaption class="mx-auto mt-3 max-w-(--container-measure) text-[0.875rem] leading-relaxed text-ink-muted">
+    <figcaption class="t-meta mx-auto mt-4 max-w-(--container-measure) text-ink-muted">
       {caption}
     </figcaption>
   )}
